@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface2: #F0EDE6;
+  --border: #E3DECE;
+  --text: #1A1814;
+  --text2: #6B6458;
+  --text3: #9C948A;
+  --accent: #2B5CE6;
+  --accent-light: #EEF2FD;
+  --green: #1A7A4A;
+  --green-light: #E8F5EE;
+  --red: #C0392B;
+  --red-light: #FDF0EF;
+  --amber: #B45309;
+  --needs: #2B5CE6;
+  --wants: #1A7A4A;
+  --savings: #7C3AED;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .serif { font-family: 'DM Serif Display', serif; }
+
+input[type=range] { accent-color: var(--accent); }
+
+.fade-in {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.slide-up {
+  animation: slideUp 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
