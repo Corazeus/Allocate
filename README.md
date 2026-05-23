@@ -2,7 +2,7 @@
 
 **Your money, intentionally.**
 
-A modern, mobile-first expense tracker built for individuals and couples. Track income across multiple payout dates, allocate spending using the 50/30/20 rule (or customize it), and optionally share a combined dashboard with a partner.
+A modern expense tracker built for individuals, friends, colleagues and loved ones. Track income across multiple payout dates, allocate spending using the 50/30/20 rule (or customize it).
 
 ---
 
@@ -17,10 +17,12 @@ A modern, mobile-first expense tracker built for individuals and couples. Track 
 - **Live dashboard** — See balance, income vs. spent, category breakdown, recent transactions
 - **Settings & presets** — Save custom quick-add buttons, change currency (₱/₹/$/€/£/¥)
 
-### Shared Mode
-- **Partner dashboard** — Add a partner and see combined income/expenses in real time
+### Shared Dashboard
+Perfect for **friends, households, roommates, and couples** — multiple users can contribute and log expenses together:
+- **Collaborative tracking** — Add a partner, roommate, or friend and see combined income/expenses in real time
 - **Independent entries** — Each person logs their own earnings and expenses
-- **Synchronized view** — Changes sync instantly across both users' apps
+- **Synchronized view** — Changes sync instantly across all users' apps
+- **Transparent accounting** — See who spent what, when, and on what category
 
 ## 🎯 How to use
 
@@ -41,18 +43,15 @@ A modern, mobile-first expense tracker built for individuals and couples. Track 
 2. Or **+ Custom expense** for a new entry
 3. Pick category, amount, date, optional note
 4. Saved immediately; appears in dashboard
-
-### Quick-add presets
-1. **Settings** → scroll to presets
-2. **+ Add** → name, amount, category
-3. Preset appears on Expenses tab for one-click logging
+5. Click **+ Manage presets** to add or remove preferred quick-add collections
 
 ### Shared dashboard
-1. **Shared tab** → **Invite someone**
-2. Add partner's name (email optional)
-3. Share app link → they sign in with their Google account
-4. Both enter your own earnings/expenses
-5. Combined totals appear in real time for both of you
+1. **Shared tab** → **Create a dashboard** or **Join with invite code**
+2. Create a dashboard and share the 6 alphanumeric code with other users
+3. Join an existing dashboard using the 6 alphanumeric code
+4. Add a contribution and log an expense
+5. Combined totals appear in real time for all users
+6. Perfect for households, roommates, friend groups, or couples
 
 ### Currency
 1. **Settings** → Currency dropdown
@@ -62,40 +61,23 @@ A modern, mobile-first expense tracker built for individuals and couples. Track 
 
 ## 📋 Roadmap
 Future enhancements:
+- [ ] AI Integration (For budget assistance)
 - [ ] Budget alerts ("You're at 85% of your Needs allocation")
 - [ ] Monthly/yearly reports & export to CSV
-- [ ] Recurring expense templates
 - [ ] Dark mode toggle
 - [ ] Mobile app (React Native)
-- [ ] Bill splitting between partners
 - [ ] Investment portfolio tracking
-- [ ] AI Integration
+
 ---
 
-## 🙏 Credits & AI Disclosure
+## 🙏 Credits
 
-**Allocate was built with the help of Claude AI** (Anthropic).
+**Allocate was built with the help of** [Anthropic — Claude AI](https://www.anthropic.com).
 
-This app showcases what modern AI can accomplish in a single development session:
+This app showcases what modern AI can accomplish:
+from **Full-stack architecture**, **Security-first design**, **Complex state management** to **Deployment** in just a few weeks.
 
-- **Full-stack architecture** — React frontend + Firebase backend
-- **Real-time data sync** — Firestore listeners for live updates
-- **Complex state management** — useStore hook with Firestore integration
-- **Security-first design** — Properly scoped Firestore rules, OAuth integration
-- **Production-ready UX** — Mobile-first design, error handling, loading states
-- **Comprehensive documentation** — Setup guides, deployment instructions, security notes
-
-The app was designed, developed, tested, and documented entirely by Claude AI in a single conversation. No human coding required — just well-articulated requirements and iteration.
-
-**What this demonstrates:**
-- AI can handle full-stack web development at a professional level
-- Complex feature requirements can be translated into working code instantly
-- Security best practices and cloud architecture are understood and implemented correctly
-- Production deployment workflows are automated and explained clearly
-
-**Learn more:**
-- [Anthropic — Claude AI](https://www.anthropic.com)
-- [Claude Documentation](https://docs.claude.com)
+We truly live in a world of AI, instead of treating it as a threat, embrace it as a companion!.
 
 ---
 
