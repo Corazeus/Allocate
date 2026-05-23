@@ -15,6 +15,7 @@ const DEFAULT_STATE = {
     { id: 5, name: 'Groceries', amount: 500, category: 'food' },
   ],
   sharedUsers: [],
+  sharedDashboardIds: [],
 }
 
 export function useStore(user) {
