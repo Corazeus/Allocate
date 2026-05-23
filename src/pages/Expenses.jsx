@@ -11,9 +11,26 @@ const ALLOC_OPTIONS = [
 
 function today() { return new Date().toISOString().split('T')[0] }
 
+function getDateFrom(period) {
+  const now = new Date()
+  if (period === 'month')     return new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0]
+  if (period === 'lastMonth') return new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().split('T')[0]
+  if (period === '3months')   return new Date(now.getFullYear(), now.getMonth() - 2, 1).toISOString().split('T')[0]
+  return null
+}
+
+function getDateTo(period) {
+  if (period === 'lastMonth') {
+    const now = new Date()
+    return new Date(now.getFullYear(), now.getMonth(), 0).toISOString().split('T')[0]
+  }
+  return null
+}
+
 export default function Expenses({ data, save, fmt }) {
   const [modal, setModal] = useState(null) // 'add' | 'presets' | null
   const [filter, setFilter] = useState('')
+  const [datePeriod, setDatePeriod] = useState('')
   const [form, setForm] = useState({ amount: '', category: 'food', date: today(), note: '', allocation: 'needs' })
   const [presetForm, setPresetForm] = useState({ name: '', amount: '', category: 'food', allocation: 'needs' })
 
@@ -80,8 +97,12 @@ export default function Expenses({ data, save, fmt }) {
     save({ presets: data.presets.filter(p => (p.id || p.name) !== id) })
   }
 
+  const dateFrom = getDateFrom(datePeriod)
+  const dateTo   = getDateTo(datePeriod)
   const filtered = [...data.expenses]
     .filter(e => !filter || e.category === filter)
+    .filter(e => !dateFrom || e.date >= dateFrom)
+    .filter(e => !dateTo   || e.date <= dateTo)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
@@ -117,46 +138,55 @@ export default function Expenses({ data, save, fmt }) {
 
       {/* All expenses */}
       <Card>
-        <div className="flex items-center justify-between mb-4">
-          <CardTitle style={{ margin: 0 }}>All expenses</CardTitle>
+        <CardTitle>All expenses</CardTitle>
+        <div className="flex gap-2 mb-4">
           <select
             value={filter}
             onChange={e => setFilter(e.target.value)}
-            className="text-[12px] px-2 py-1 border border-[#E3DECE] rounded-lg bg-white text-[#6B6458] focus:outline-none"
+            className="flex-1 text-[12px] px-2 py-1.5 border border-[#E3DECE] rounded-lg bg-white text-[#6B6458] focus:outline-none"
           >
-            <option value="">All</option>
+            <option value="">All categories</option>
             {CATS.map(c => <option key={c}>{c}</option>)}
           </select>
+          <select
+            value={datePeriod}
+            onChange={e => setDatePeriod(e.target.value)}
+            className="flex-1 text-[12px] px-2 py-1.5 border border-[#E3DECE] rounded-lg bg-white text-[#6B6458] focus:outline-none"
+          >
+            <option value="">All time</option>
+            <option value="month">This month</option>
+            <option value="lastMonth">Last month</option>
+            <option value="3months">Last 3 months</option>
+          </select>
         </div>
-        {filtered.length ? filtered.map(e => {
-          const allocOpt = ALLOC_OPTIONS.find(a => a.key === e.allocation)
-          return (
-            <div key={e.id} className="flex items-center justify-between py-3 border-b border-[#F0EDE6] last:border-0">
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <CatPill cat={e.category} />
-                  {allocOpt && (
-                    <span
-                      className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                      style={{
-                        background: allocOpt.color + '22',
-                        color: allocOpt.color,
-                      }}
-                    >
-                      {allocOpt.label}
-                    </span>
-                  )}
-                  {e.note && <span className="text-[13px] text-[#6B6458]">{e.note}</span>}
+        <div className="max-h-96 overflow-y-auto">
+          {filtered.length ? filtered.map(e => {
+            const allocOpt = ALLOC_OPTIONS.find(a => a.key === e.allocation)
+            return (
+              <div key={e.id} className="flex items-center justify-between py-3 border-b border-[#F0EDE6] last:border-0">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <CatPill cat={e.category} />
+                    {allocOpt && (
+                      <span
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                        style={{ background: allocOpt.color + '22', color: allocOpt.color }}
+                      >
+                        {allocOpt.label}
+                      </span>
+                    )}
+                    {e.note && <span className="text-[13px] text-[#6B6458]">{e.note}</span>}
+                  </div>
+                  <p className="text-[11px] text-[#9C948A] mt-0.5">{e.date}</p>
                 </div>
-                <p className="text-[11px] text-[#9C948A] mt-0.5">{e.date}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">{fmt(e.amount)}</p>
+                  <button onClick={() => deleteExpense(e.id)} className="text-[#9C948A] hover:text-[#C0392B] text-lg leading-none px-1">×</button>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <p className="font-semibold">{fmt(e.amount)}</p>
-                <button onClick={() => deleteExpense(e.id)} className="text-[#9C948A] hover:text-[#C0392B] text-lg leading-none px-1">×</button>
-              </div>
-            </div>
-          )
-        }) : <Empty icon="🧾" text="No expenses found" />}
+            )
+          }) : <Empty icon="🧾" text="No expenses found" />}
+        </div>
       </Card>
 
       {/* Add expense modal */}

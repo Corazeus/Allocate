@@ -26,7 +26,7 @@ export default function Dashboard({ data, fmt }) {
   const catEntries = Object.entries(catTotals).sort((a, b) => b[1] - a[1])
   const maxCat = catEntries[0]?.[1] || 1
 
-  const recent = [...data.expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6)
+  const recent = [...data.expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20)
 
   return (
     <div className="fade-in">
@@ -126,18 +126,20 @@ export default function Dashboard({ data, fmt }) {
       {/* Recent */}
       <Card>
         <CardTitle>Recent transactions</CardTitle>
-        {recent.length ? recent.map(e => (
-          <div key={e.id} className="flex items-center justify-between py-3 border-b border-[#F0EDE6] last:border-0">
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <CatPill cat={e.category} />
-                {e.note && <span className="text-[13px] text-[#6B6458]">{e.note}</span>}
+        <div className="max-h-72 overflow-y-auto">
+          {recent.length ? recent.map(e => (
+            <div key={e.id} className="flex items-center justify-between py-3 border-b border-[#F0EDE6] last:border-0">
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <CatPill cat={e.category} />
+                  {e.note && <span className="text-[13px] text-[#6B6458]">{e.note}</span>}
+                </div>
+                <p className="text-[11px] text-[#9C948A] mt-0.5">{e.date}</p>
               </div>
-              <p className="text-[11px] text-[#9C948A] mt-0.5">{e.date}</p>
+              <p className="font-semibold text-[15px]">{fmt(e.amount)}</p>
             </div>
-            <p className="font-semibold text-[15px]">{fmt(e.amount)}</p>
-          </div>
-        )) : <Empty icon="🧾" text="No transactions yet" />}
+          )) : <Empty icon="🧾" text="No transactions yet" />}
+        </div>
       </Card>
     </div>
   )
